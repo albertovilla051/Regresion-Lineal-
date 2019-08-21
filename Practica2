@@ -1,0 +1,19 @@
+x<-c(132,129,120,113.2,105,92,84,83.2,88.4,59,80,81.5,71,69.2)
+y<-c(46,48,51,52.1,54,52,59,58.7,61.6,64,61.4,54.6,58.8,58) 
+var(x,x)
+var(y,y)
+plot(x,y,xlim =c(50,150),ylim = c(45,70))
+##Para SXX##
+sxx=sum((x-mean(x))^2)
+#PARA SXY##
+sxy=sum((x-mean(x))*(y-mean(y)))
+#PARA b1##
+b1=(sxy/sxx)
+##PARA b0##
+b0<-mean(y)-b1*mean(x) 
+##y=75.21-(0.2093)(x)<- esta es la recta ajustada##
+##Comprobando con LM##
+lm(y~x)
+abline(lm(y~x),col="purple")
+
+##Se comprueba que mediante la funcion lm, se obtiene la mejor recta en una RSL##
