@@ -1,0 +1,34 @@
+x <- c(50,50,80,80,110,110,140,140,170,170)
+y <- c(17052,14063,26264,19600,21952,26362,26362,26752,31654,32928)
+require(ggplot2)
+sxx <- sum((x-mean(x))^2)
+sxy <-  sum((x-mean(x))*(y-mean(y)))
+b1<- sxy/sxx
+b0<- mean(y)-b1*mean(x)
+lm(y~x)
+yajus<- b0+b1*x
+resi<- y-yajus
+table1<- data.frame(x,y,yajus,resi)
+View(table1)
+
+mod1 <- lm(y~x)
+pr<- predict(mod1)
+qplot(x,y,
+      geom=c("point"),
+      method="lm") + geom_line(aes(y=pr), lwd=1.2, color="pink")
+sse<- sum((y-yajus)^2)
+varian<-sse/length(x)-2
+destan<-sqrt (varian)
+sst<-sum(y^2)-(sum((y))^2)/10
+
+rb1<- destan/sqrt(sxx)
+inco1<- b1+2.3060*(rb1)
+inco2<- b1-2.3060*(rb1)
+
+
+
+##INTERVALO DE CONFIANZA
+##T<-qt(.025,8,lower.tail =T)
+##li<-b1+T*SB
+##ls<-b1-T*SB
+##qt(p=.95+ .05/2, df=8, lower.tail =TRUE)
