@@ -15,5 +15,18 @@ b0<-mean(y)-b1*mean(x)
 ##Comprobando con LM##
 lm(y~x)
 abline(lm(y~x),col="purple")
-
 ##Se comprueba que mediante la funcion lm, se obtiene la mejor recta en una RSL##
+
+##Recta ajustada y=75.2124+ .209387*x##
+install.packages("ggplot2")
+require(ggplot2)
+z<-b0-b1*(70)
+q<-z<-b0-b1*(40)
+n<-b0-b1*(55)
+mod1<-lm(y~x)
+rr<-predict(mod1)
+names(rr)
+qplot(x,y,geom =c("point"), method="lm")+geom_line(aes(y=rr),lwd=1.2,color=4)+
+       geom_point(aes(70,z),color="pink")+geom_point(aes(40,q),color="purple")+
+        geom_point(aes(55,n),color="green")
+
