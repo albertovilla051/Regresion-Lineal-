@@ -1,0 +1,20 @@
+install.packages("ggplot2")
+require(ggplot2)
+x<-c(8,15,16.5,20,20,27.5,30,30,35,38,40,45,50,50,55,55,59,65)
+length(x)
+y<-c(22.8,27.2,23.7,17.1,21.5,18.6,16.1,23.4,13.4,19.5,12.4,13.2,11.3,10.3,14.1,9.7,12,6.8)
+length(y)
+mean(x)
+mod1<-lm(y~x)
+summary(mod1)
+predict(mod1)
+##76.57 es lo que abarca nuestro modelo##
+##Calcular y gorro, cuando x =45
+z<-27.18751-.29784*(45)
+##Intervalo de confianza para y goroo ##
+T<-qt(p=.95+ .05/2, df=16, lower.tail =TRUE)
+sxx <- sum((x-mean(x))^2)
+
+Sy<- (2.86*((1/18)+(45-36.611)^2/(4840.7778))^(1/2))
+intcon1<-z+T*Sy
+intcon2<-z-T*Sy
