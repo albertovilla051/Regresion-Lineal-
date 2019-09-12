@@ -1,0 +1,54 @@
+require(ggplot2)
+mod<- lm(y~x)
+summary(mod)
+
+##Predict, es la recta ajustada ##
+ypro<-predict(mod)
+ypro
+b0<- round(mod$coefficients[1],2)
+b1<-round(mod$coefficients[2],2)
+mod$coefficients
+qplot(x,y,
+      main = "Grafica de regresión", ylab = "Velocidad1",
+      xlab = "Velocidad2", geom = c("point"), 
+      method="lm") + geom_line(aes(y=ypro),lwd=1.2, color=4) + 
+  geom_text(x=46,y=49,aes(label=paste("y","=",b0,"+",b1,"*","x")))
+
+##Nuevo Ejercicio##
+
+x <- c(635,644,711,708,836,820,810,870,856,923,878,937,948)
+y <- c(100,93,88,84,77,75,74,63,57,55,47,43,38)
+length(x)
+length(y)
+mod1<-lm(y~x)
+summary(mod1)
+lm(y~x)
+
+##Predecir la recta##
+yajus<-predict(mod1)
+yajus
+b0<- round(mod1$coefficients[1],2)
+b1<-round(mod1$coefficients[2],2)
+mod1$coefficient
+qplot(x,y,
+      main = "Grafica de regresión", ylab = "Velocidad1",
+      xlab = "Velocidad2", geom = c("point"), 
+      method="lm") + geom_line(aes(y=yajus),lwd=1.2, color=4) + 
+  geom_text(x=46,y=49,aes(label=paste("y","=",b0,"+",b1,"*","x")))
+
+lm(y~x)
+sxx <- sum((x-mean(x))^2)
+sxy <-  sum((x-mean(x))*(y-mean(y)))
+b11<-sxy/sxx
+b00<-mean(y) - b11*mean(x)
+resi<-y-yajus
+sse<-sum((y-yajus)^2)
+s2<-sse/11
+s<-sqrt(s2)
+sst<-sum(y^2)-(sum(y^2))/13
+r2<-1-(sse/sst)
+sb11<-s/sqrt(sxx)
+##Intervalos de confianza##
+T<-qt(p=.95+ .05/2, df=11, lower.tail =TRUE)
+ic <- b11+T*(sb11)
+ic2 <- b11-T*(sb11)
