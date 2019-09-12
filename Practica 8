@@ -1,0 +1,57 @@
+##Relacion entre tamaño y precio##
+x<-c(50,70,65,40,72,60,55,50,36,90,40,60,50,75,45,50,70,85,110,60,63,75,45,85,60,50,35,30,120,85,95,95,90,100,95,100,91,120,85,80,75,100,97,120,100,87,90,105,115,97)
+length(y)
+y<- c(750,770,720,650,848.59,700,620,800,650,800,600,1000,700,820,1100,700,850,850,800,800,700,780,700,800,800,650,600,650,2000,850,889.91,1200,900,900,900,1400,950,950,950,1000,960,1300,1012.59,1050.59,2350,1300,1100,1150,1100,1200)
+install.packages("ggplot2")
+require(ggplot2)
+
+mod1<-lm(y~x)
+sxx <- sum((x-mean(x))^2)
+sxy <-  sum((x-mean(x))*(y-mean(y)))
+b1<-sxy/sxx
+b0<-mean(y) - b1*mean(x)
+yajus<-predict(mod1)
+resi<-y-yajus
+sse<-sum((y-yajus)^2)
+s2<-sse/48
+s<-sqrt(s2)
+sst<-sum(y^2)-(sum(y^2))/50
+r2<-1-(sse/sst)
+sb11<-s/sqrt(sxx)
+##Grafica##
+yajus<-predict(mod1)
+b00<- round(mod1$coefficients[1],2)
+b11<-round(mod1$coefficients[2],2)
+mod1$coefficients
+qplot(x,y,
+      main = "Grafica de regresión", ylab = "Precio",
+      xlab = "Tamaño", geom = c("point"), 
+      method="lm") + geom_line(aes(y=yajus),lwd=1.2, color=4) + 
+  geom_text(x=46,y=49,aes(label=paste("y","=",b00,"+",b11,"*","x")))
+
+##Intervalos de confianza B1, b gorro ##
+T<-qt(p=.95+ .05/2, df=48, lower.tail =TRUE)
+ic <- b1+T*(sb11)
+ic2 <- b1-T*(sb11)
+
+##Medias Mxy##
+mx<-mean(x)
+my<-mean(y)
+summary(mod1)
+yajus<-predict(mod1)
+##Z se define como y gorro##
+z<-326.252+7.938*median(x)
+z
+T<-qt(p=.95+ .05/2, df=48, lower.tail =TRUE)
+Sy<- (259.8*((1/50)+(median(x)-mean(x))^2/(sxx))^(1/2))
+Sy
+##Intervalo de confianza para Y gorro##
+ic1y<-z+T*Sy
+ic2y<-z-T*Sy
+
+##Intervalos de confianza para B y Y gorro mediante funciones##
+x1<-data.frame(x=77.5)
+##Para Beta gorro##
+confint(mod1,"x", level=0.95)
+##Para Y gorro##
+predict(mod1,x1,interval = "confidence")
