@@ -1,0 +1,71 @@
+##Ejercicio 17##
+y<- -408.20+14.06(x1)+.76(x2)-3.64(x3)
+
+##a)Realizando la prueba F##
+f<-((.91/3)/((1-.91)/(11-4)))
+f
+f2<-qf(.005,3,7,lower.tail = TRUE)
+f2
+f2<-.02250523779
+##Mediante la obtencion del valor de pvalue, como se obtuvo un valor menor a .05, se puede llegar a la conclusión de que las 
+##var. independientes del modelo son significativas, es decir aportar información##
+
+
+##b)Interpretacion del estimado 14.06##
+##Se estima que 14.06cm de la circunferencia del brazo es el cambio promedio,asociado con un aumento de 1 unidad de (W)
+##siempre y cuando las otras dos variables independientes se mantienen fijas
+
+##c) Potencia de Salida##
+p1<- -408.20+14.06*(36)+.76*(120)-3.64*(10)
+p1<- 152.76
+##El valor obtenido es de 152.76 unidades (W) de salida, es una estimación puntual##
+
+##d)Estimación puntual##
+p2<- -408.20+14.06*(36)+.76*(120)-3.64*(10)
+p2
+##El valor obtenido es de 152.76 unidades (W) de salida, es una estimación puntual##
+
+##e)Aumento de 1mmol/L##
+##Tomando los incisos c y d##
+p3<- -408.20+14.06*(36)+.76*(120)-3.64*(11)
+p3
+##En esta caso con un aumento de 1 unidad de Lactato, la emision de potencia disminuira en 3.63 Unidades (W)
+
+___________________________________________________________________________________________________________________________-
+
+R2<- 1-(SSE/SST)
+R2
+Ra2<- 1-((SSE/9)/(SST/11))
+Ra2
+SSR<- SST-SSE
+
+f<- (SSR/k)/(SSE/9)
+f
+F<-(R2/k)/((1-R2)/(n-(k+1)))
+F
+f2<- qf(.025,2,9,lower.tail = TRUE)
+f2 
+f2tablas<-0.02538916
+##Si existe una relación util entre el tiempo de rapación y los dos predictores del modelo, por el valor dle p-value 
+##menor a .05##
+  
+##b) Probando una hipotesis con un nivel de .01##
+f3<- qf(.005,2,9,lower.tail = TRUE)
+##Suponiendo que el modelo sigue constante y bajo el esquema que se planete, con el p value menor a -05, se considera que
+##si tiene siginifcacia en el modelo##
+
+##c) Interrvalo de Confianza para B2##
+t <- qt(p=0.95+(0.05/2),df=9,lower.tail = TRUE)
+t
+min<- (1.250)-t*(.312)
+max<- (1.250)+t*(.312)
+##Intervalo en el que puede estar la y ajustada ##
+
+##d)
+yest<- 0.950+.4*(6)+1.25*(.192)
+##Intervalos al 99%##
+t1 <- qt(p=0.99+(0.01/2),df=9,lower.tail = TRUE)
+t1
+max1<-(yest)+t1*(((s2)+(.312)^2)^1/2)
+min1<-(yest)-t1*(((s2)+(.312)^2)^1/2)
+##EL valor estimado es de 3.59, valor que se encuentre ubicados entre los dos intervalos de confianza##
