@@ -1,0 +1,63 @@
+x1 <- c(30,40,30,40,30,40,30,40,30,40,30,40,30,40,30,40,25,45,35,35,35,35,35,35,35,35,35,35,35,35)
+x2 <- c (60,60,90,90,60,60,90,90,60,60,90,90,60,60,90,90,75,75,45,105,75,75,75,75,75,75,75,75,75,75)
+x3 <- c(175,175,175,175,225,225,225,225,175,175,175,175,225,225,225,225,200,200,200,200,150,250,200,200,200,200,200,200,200,200)
+x4 <- c(15,15,15,15,15,15,15,15,25,25,25,25,25,25,25,25,20,20,20,20,20,20,10,30,20,20,20,20,20,20)
+y <- c(26.2,26.3,39.8,39.7,38.6,35.5,48.8,37.8,26.6,23.4,38.6,52.1,39.5,32.3,43,56,35.2,46.9,22.7,58.7,34.5,44,35.7,41.8,36.5,37.6,40.3,46,27.8,40.3)
+
+datos <- data.frame(x1,x2,x3,x4,y)
+mod1<- lm(y~x1+x2+x3+x4, data=datos)
+##data=datos, se enlista las variables que usamos en el modelo##
+summary(mod1)  
+
+## Interpreta x3. Se estima que .1297gm es el cambio promedio en resistencia asociado con un aumento de grado 1 de temperatura 
+## cuando las otras tres variables independientes se mantienen fijos
+yy <- -37.47667+0.21167*35+0.49833*75+0.12967*200+0.258333*20
+yy
+names(mod1)
+mod1$coefficients ## Nos da todas las B
+mod1$residuals
+mod1$fitted.values ## Valores de y^, ajustados, ecuación ajustada con mínimos cuadrados
+predict(mod1)     ##Tambien nos da las y ajustadas##
+plot(x4,y)
+
+## F-statistic plantea H0=B1=B2=B3=B4=0 y la rechaza 
+## El error es qué tanto varia la recta respecto a la recta ajustada
+
+##___________________________________________________________________________________________##
+f<-c(30,40,30,40,30,40,30,40,30,40,30,40,30,40,30,40,25,45,35,35,35,35,35,35,35,35,35,35,35,35)
+length(f)
+p<-c(60,60,90,90,60,60,90,90,60,60,90,90,60,60,90,90,75,75,45,105,75,75,75,75,75,75,75,75,75,75)
+length(p)
+t<-c(175,175,175,175,225,225,225,225,175,175,175,175,225,225,225,225,200,200,200,200,150,250,200,200,200,200,200,200,200,200)
+length(t)
+ti<-c(15,15,15,15,15,15,15,15,25,25,25,25,25,25,25,25,20,20,20,20,20,20,10,30,20,20,20,20,20,20)
+length(ti)
+r<-c(26.2,26.3,39.8,39.7,38.6,35.5,48.8,37.8,26.6,23.4,38.6,52.1,39.5,32.3,43,56,35.2,46.9,22.7,58.7,34.5,44,35.7,41.8,36.5,37.6,40.3,46,27.8,40.3)
+length(r)
+##X1= Fuerza, x2= Potencia, x3=Temperatura, X4=Tiempo, y+- resistencia##
+##Obtener las Betas correspondientes## 
+##y=B0,B1X1,B2X2,B3X3,B4X4+E##
+
+#datos2 <- data.frame(gastos, ingresos, tamaño, hijosU)
+#datos2 <- data.frame(f,p,t,ti)
+## reg_lin_mul <- lm(gastos ~ ingresos + tamaño + hijosU)
+
+rm <- lm(r ~ f+p+t+ti)
+mod<-predict(rm)
+summary(rm)
+##y=-37.48+.2117x1+.4983x2+.1296x3+.2583x4##
+##Cada .1296 grados aumenta la resistencia en 1 grado, siempre y cuando las otras variables se mantengan constantes##
+##Interpretación de X3: Se estima que .1297 gm es el promedio en resistencia asociado con un aumento,
+## de 1 grado de temperatura cuando las otras 3 var. independientes se mantengan fijos
+
+##Realizar la estimación puntual de la resistencia cuando se tiene una fuerza de 35,potebcia 75,
+##temperatura de 200 y tiempo de 20##
+z<--37.48+.2117*(35)+.4983*(75)+.1296*(200)+.2583*(20)
+View(z)
+
+names(rm)
+rm$coefficients
+
+plot(f,r)
+
+##Estadistico F H0=B1=B1=B2=B3=B4=0##
