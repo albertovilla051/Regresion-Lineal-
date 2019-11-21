@@ -1,0 +1,46 @@
+x <- c(220,220,220,220,370,370,370,370,440,440,440,440,680,680,680,680,860,860,860,860)
+y <- c(24,22,19.1,15.5,26.3,24.6,23.1,21.2,25.2,24,21.7,19.2,17,14.9,13,11.8,12.2,11.2,6.6,2.8)
+install.packages("ggplot2")
+require(ggplot2)
+## a <- lm(y~I(x+x^2))
+
+plot(x,y)
+datos <- data.frame(x,y)
+View(datos)
+mod1<- lm(y~poly(x,2,raw=T), data=datos)
+##Nos ofrece las Y ajustadas pra cada x##
+predi <- predict(mod1)
+predi
+plot(predi)
+summary(mod1)  ## Entre mayor R^2 mejor  modelo
+
+#Valores recta ajustada
+names(mod1)
+mod1$fitted.values
+
+
+require(ggplot2)
+ggplot()+geom_point(data=datos, aes(x=x,y=y), size=1)+
+  geom_line(aes(x=datos$x, y=predi), color="blue")+
+  xlab("X")+ ylab("Y")+ggtitle("Curva de Ajuste")
+
+###################################################################
+x <- c(220,220,220,220,370,370,370,370,440,440,440,440,680,680,680,680,860,860,860,860)
+y <- c(24,22,19.1,15.5,26.3,24.6,23.1,21.2,25.2,24,21.7,19.2,17,14.9,13,11.8,12.2,11.2,6.6,2.8)
+plot(x,y,pch=19)
+lines(lowess(x,y))
+modelo <- lm(y~poly(x,2,raw = TRUE))
+summary(modelo)
+##No da lo mismo solo que con diferente formula##
+modelo2 <- lm(y~x+I(x^2))
+summary(modelo2)
+lines(x, predict(modelo), col=2)
+
+#Mediante un modelo cuadrático se establece que la función Y=14.52+0.004323X+0.000006001X^2
+mod1 <- lm(y~x)
+anova(mod1)
+abline(mod1, col=4)
+names(modelo)
+modelo$fitted.values
+a <- predict(modelo)
+a
