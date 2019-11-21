@@ -1,0 +1,56 @@
+x1 <- c(21,21,7,7,28,0,14,14,14)
+x2 <- c(0.65,0.55,0.65,0.55,0.6,0.6,0.7,0.5,0.6)
+y <- c(33.55,47.55,35,35.9,40.9,39.1,31.55,48,42.4)
+
+datos <- data.frame(x1,x2,y)
+pairs(datos)
+cor(datos)
+modelo <- lm(y~x1+x2, data = datos)
+summary(modelo)
+##Valores de las y ajustadas##
+valores <- predict(modelo)
+valores
+##Son los valores de las betas##
+modelo$coefficients
+##Son las y ajustadas##
+modelo$fitted.values
+yest <- ((modelo$coefficients[1])*1) + ((modelo$coefficients[2])*14) + ((modelo$coefficients[3])*0.6)
+yest
+
+
+#____________________________________________________________________________________________________________________________________
+
+
+x1 <- c(21,21,7,7,28,0,14,14,14)
+x2 <- c(0.65,0.55,0.65,0.55,0.6,0.6,0.7,0.5,0.6)
+x3 <- x1*x2
+x4 <- (x2)^2
+y <- c(33.55,47.55,35,35.9,40.9,39.1,31.55,48,42.4)
+
+datos1 <- data.frame(x1,x2,x3,x4,y)
+pairs(datos1)
+cor(datos1)
+
+modelo1 <- lm(y~x1+x2+x3+x4, data = datos1)
+summary(modelo1)
+
+valores1 <- predict(modelo1)
+valores1
+
+modelo1$fitted.values
+
+##_______________________________________________________
+x1 <- c(21,21,7,7,28,0,14,14,14)
+x2 <- c(.65,.55,.65,.55,.60,.60,.70,.50,.60)
+y <- c(33.55,47.55,35,35.9,40.9,39.1,31.55,48,42.3)
+modpt <- lm(y~x1+x2) 
+summary(modpt)
+y1= 84.81 +.1643*(x1)-79.6667*(x2) 
+mod1<- lm(y~x1)
+summary(mod1)
+
+x3<-x1*x2 
+x4<- x2^2
+
+mod2 <- lm(y~x1+x2+x3+x4)
+summary(mod2)
